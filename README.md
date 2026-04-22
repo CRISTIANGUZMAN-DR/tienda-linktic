@@ -1,4 +1,4 @@
-# Tienda Linktick — Full Stack (Java Spring Boot + Vue 3)
+# Tienda Linktic — Full Stack (Java Spring Boot + Vue 3)
 
 Sistema de gestión de productos e inventario con 2 microservicios, comunicación resiliente, autenticación JWT y frontend en Vue 3.
 
@@ -32,8 +32,8 @@ Sistema de gestión de productos e inventario con 2 microservicios, comunicació
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/CRISTIANGUZMAN-DR/tienda-linktick.git
-cd tienda-linktick
+git clone https://github.com/CRISTIANGUZMAN-DR/tienda-linktic.git
+cd tienda-linktic
 ```
 
 ### 2. Levantar el backend con Docker Compose
