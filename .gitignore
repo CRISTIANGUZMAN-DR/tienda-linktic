@@ -1,0 +1,19 @@
+# Maven
+**/target/
+**/.mvn/wrapper/maven-wrapper.jar
+
+# Node
+**/node_modules/
+**/.vite/
+**/dist/
+
+# IDE
+**/.idea/
+**/.vscode/
+**/*.iml
+
+# Docker volumes
+**/postgres-data/
+
+# ENV
+**/.env

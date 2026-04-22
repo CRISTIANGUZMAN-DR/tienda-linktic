@@ -1,0 +1,80 @@
+version: '3.8'
+
+services:
+  # ── Base de datos de Products ──────────────────────────
+  products-db:
+    image: postgres:16
+    container_name: products-db
+    environment:
+      POSTGRES_DB: products_db
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secret
+    ports:
+      - '5432:5432'
+    volumes:
+      - products-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U admin -d products_db']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── Base de datos de Inventory ─────────────────────────
+  inventory-db:
+    image: postgres:16
+    container_name: inventory-db
+    environment:
+      POSTGRES_DB: inventory_db
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: secret
+    ports:
+      - '5433:5432' # puerto distinto en tu máquina para no chocar
+    volumes:
+      - inventory-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U admin -d inventory_db']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── Products Service (Java) ────────────────────────────
+  products-service:
+    build: ./products-service
+    container_name: products-service
+    ports:
+      - '8081:8081'
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://products-db:5432/products_db
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: secret
+      SERVER_PORT: 8081
+      JWT_SECRET: mi-clave-secreta-para-jwt-debe-ser-larga-2026-proyecto-linktic
+      JWT_EXPIRATION: 86400000
+    depends_on:
+      products-db:
+        condition: service_healthy
+
+  # ── Inventory Service (Java) ───────────────────────────
+  inventory-service:
+    build: ./inventory-service
+    container_name: inventory-service
+    ports:
+      - '8082:8082'
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://inventory-db:5432/inventory_db
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: secret
+      SERVER_PORT: 8082
+      PRODUCTS_SERVICE_URL: http://products-service:8081
+      JWT_SECRET: mi-clave-secreta-para-jwt-debe-ser-larga-2026-proyecto-linktic
+      JWT_EXPIRATION: 86400000
+    depends_on:
+      inventory-db:
+        condition: service_healthy
+      products-service:
+        condition: service_started
+
+# ── Volúmenes (aquí viven los datos) ──────────────────────
+volumes:
+  products-db-data:
+  inventory-db-data:
