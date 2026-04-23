@@ -3,6 +3,7 @@ package com.cguzman.tienda.inventory_service.config;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -14,11 +15,19 @@ public class JwtFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
 
+    @Value("${security.enabled:true}")
+    private boolean securityEnabled;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain chain)
             throws ServletException, IOException {
+
+        if (!securityEnabled) {
+            chain.doFilter(request, response);
+            return;
+        }
 
         // Permitir preflight CORS
         if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {

@@ -95,6 +95,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { createProduct } from '@/api/products'
 import ErrorMessage from '@/components/ErrorMessage.vue'
+import { useProductsStore } from '@/stores/products'
 
 const router = useRouter()
 
@@ -121,6 +122,8 @@ async function handleSubmit() {
   try {
     await createProduct(form.value)
     success.value = true
+    // Limpiar caché para que el listado se refresque
+    useProductsStore.cache = {}
     form.value = { sku: '', name: '', price: null, status: 'ACTIVE' }
   } catch (err) {
     error.value = err.userMessage
