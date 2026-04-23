@@ -71,13 +71,13 @@ public class InventoryService {
         inv.setAvailable(inv.getAvailable() - req.getQuantity());
         inventoryRepository.save(inv);
 
-        // 6. Guardar clave de idempotencia para evitar doble descuento
+        // 6. Guardar clave de idempotencia para evitar doble descuento de STOCK
         idempotencyRepository.save(PurchaseIdempotency.builder()
                 .idempotencyKey(idempotencyKey)
                 .result("SUCCESS")
                 .build());
 
-        // 7. Publicar evento (log estructurado por ahora)
+        // 7. Publicar evento, en este caso se puede implementar generar una factura, preparar un envio, registrar la venta etc. Pero para el ejemplo solo es un log
         log.info("InventoryChanged productId={} quantityBought={} remaining={}",
                 req.getProductId(), req.getQuantity(), inv.getAvailable());
 
