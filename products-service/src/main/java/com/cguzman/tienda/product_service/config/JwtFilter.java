@@ -29,12 +29,20 @@ public class JwtFilter extends OncePerRequestFilter {
             return;
         }
 
-        // Swagger y actuator no requieren JWT
         String path = request.getRequestURI();
+
+        // Swagger, actuator y auth no requieren JWT
         if (path.startsWith("/swagger-ui") ||
                 path.startsWith("/api-docs") ||
                 path.startsWith("/actuator") ||
                 path.startsWith("/auth")) {
+            chain.doFilter(request, response);
+            return;
+        }
+
+        // Llamadas internas entre microservicios con API Key
+        String apiKey = request.getHeader("X-API-KEY");
+        if ("internal-secret-key".equals(apiKey)) {
             chain.doFilter(request, response);
             return;
         }

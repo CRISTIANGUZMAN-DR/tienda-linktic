@@ -102,6 +102,13 @@ Contraseña: admin
 | `POST` | `/api/purchases`             | Realizar compra             |
 | `GET`  | `/swagger-ui.html`           | Documentación Swagger       |
 
+### Swagger — Autenticación
+
+1. Llama a `POST /auth/login` con `{"username":"admin","password":"admin"}`
+2. Copia el token de la respuesta
+3. Haz clic en **Authorize 🔒** arriba a la derecha
+4. Pega el token y haz clic en **Authorize**
+
 ---
 
 ## 🔧 Ejemplos curl
