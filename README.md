@@ -70,14 +70,14 @@ Contraseña: admin
 
 ## 🔑 Variables de entorno
 
-| Variable                     | Descripción                                    | Valor por defecto                                     |
-| ---------------------------- | ---------------------------------------------- | ----------------------------------------------------- |
-| `SPRING_DATASOURCE_URL`      | URL de la base de datos                        | `jdbc:postgresql://products-db:5432/products_db`      |
-| `SPRING_DATASOURCE_USERNAME` | Usuario de la BD                               | `admin`                                               |
-| `SPRING_DATASOURCE_PASSWORD` | Contraseña de la BD                            | `secret`                                              |
-| `JWT_SECRET`                 | Clave secreta para firmar JWT                  | `mi-clave-super-secreta-para-jwt-debe-ser-larga-2024` |
-| `JWT_EXPIRATION`             | Expiración del JWT en ms                       | `86400000` (24h)                                      |
-| `PRODUCTS_SERVICE_URL`       | URL del Products Service (usado por Inventory) | `http://products-service:8081`                        |
+| Variable                     | Descripción                                    | Valor por defecto                                                |
+| ---------------------------- | ---------------------------------------------- | ---------------------------------------------------------------- |
+| `SPRING_DATASOURCE_URL`      | URL de la base de datos                        | `jdbc:postgresql://products-db:5432/products_db`                 |
+| `SPRING_DATASOURCE_USERNAME` | Usuario de la BD                               | `admin`                                                          |
+| `SPRING_DATASOURCE_PASSWORD` | Contraseña de la BD                            | `secret`                                                         |
+| `JWT_SECRET`                 | Clave secreta para firmar JWT                  | `mi-clave-secreta-para-jwt-debe-ser-larga-2026-proyecto-linktic` |
+| `JWT_EXPIRATION`             | Expiración del JWT en ms                       | `86400000` (24h)                                                 |
+| `PRODUCTS_SERVICE_URL`       | URL del Products Service (usado por Inventory) | `http://products-service:8081`                                   |
 
 ---
 
